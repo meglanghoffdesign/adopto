@@ -1,12 +1,15 @@
-import jwt from 'jsonwebtoken';
-export const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers.authorization;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authenticateToken = void 0;
+var jsonwebtoken_1 = require("jsonwebtoken");
+var authenticateToken = function (req, res, next) {
+    var authHeader = req.headers.authorization;
     console.log('Auth Header:', authHeader); // Log the received header
     if (authHeader) {
-        const token = authHeader.split(' ')[1];
+        var token = authHeader.split(' ')[1];
         console.log('Extracted Token:', token); // Log the extracted token
-        const secretKey = process.env.JWT_SECRET_KEY || 'handsome';
-        jwt.verify(token, secretKey, (err, user) => {
+        var secretKey = process.env.JWT_SECRET_KEY || 'handsome';
+        jsonwebtoken_1.default.verify(token, secretKey, function (err, user) {
             if (err) {
                 console.error('JWT Verification Failed:', err.message); // Log JWT errors
                 return res.sendStatus(403); // Forbidden
@@ -21,3 +24,4 @@ export const authenticateToken = (req, res, next) => {
         res.sendStatus(401); // Unauthorized
     }
 };
+exports.authenticateToken = authenticateToken;
