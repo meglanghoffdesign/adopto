@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopto - Pet Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white p-4 shadow-md flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-red-500">Adopto</h1>
+        <button class="text-3xl">☰</button>
+    </header>
+    
+    <!-- Pet Intro Section with Black Background -->
+    <main class="relative bg-black text-white pb-24">
+        <div class="max-w-5xl mx-auto px-6 pt-6">
+            <button class="text-white text-lg">&larr;</button>
+            <h2 class="text-2xl font-bold mt-2">Hello!</h2>
+            <p class="text-lg">I'm so excited to meet you! My name is <strong>Test Dog</strong>. I can't wait to say hi!</p>
+            
+            <!-- Pet Image -->
+            <div class="mt-4 flex justify-center">
+                <img src="c:\Users\admin\Desktop\brittany-spaniel-dog.webp" alt="Test Dog" class="w-64 h-64 object-cover rounded-lg">
+            </div>
+        </div>
+    </main>
+
+    <!-- Badge Section (Floating Over the Transition) -->
+    <div class="relative -mt-12 flex flex-wrap justify-center gap-3 px-6">
+        <span class="bg-gray-700 text-white px-4 py-2 rounded-full">🐾 Breed: Brittany Spaniel Mix</span>
+        <span class="bg-gray-700 text-white px-4 py-2 rounded-full">📏 Size: Medium</span>
+        <span class="bg-gray-700 text-white px-4 py-2 rounded-full">♀ Gender: Female</span>
+        <span class="bg-gray-700 text-white px-4 py-2 rounded-full">🎂 Age: Adult</span>
+        <span class="bg-gray-700 text-white px-4 py-2 rounded-full">📍 Location: Dallas Fortworth, TX</span>
+    </div>
+    
+    
+    <!-- Pet Profile and Organization Section -->
+    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+        <!-- Pet Profile -->
+        <div class="bg-white text-black p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-4">Test Dog’s Profile</h2>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <p><span class="font-bold">Name:</span> Test Dog</p>
+                <p><span class="font-bold">Good with children?</span> Yes</p>
+                <p><span class="font-bold">Color:</span> Brown, White, Cream</p>
+                <p><span class="font-bold">Good with dogs?</span> Yes</p>
+                <p><span class="font-bold">Coat Length:</span> Long</p>
+                <p><span class="font-bold">Good with cats?</span> Yes</p>
+                <p><span class="font-bold">Gender:</span> Female</p>
+                <p><span class="font-bold">House-trained?</span> Yes</p>
+                <p><span class="font-bold">Size:</span> Medium</p>
+                <p><span class="font-bold">Declawed?</span> No</p>
+                <p><span class="font-bold">Age:</span> Adult</p>
+                <p><span class="font-bold">Special Needs?</span> No</p>
+            </div>
+            <p class="mt-4 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <button class="mt-4 w-full bg-black text-white p-2 rounded-lg">See my full profile</button>
+        </div>
+
+        <!-- Organization Info -->
+        <div class="bg-white text-black p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-4">Test Dog’s Location</h2>
+            <p class="font-semibold">Sunnyside Adoption Co.</p>
+            <div class="grid grid-cols-2 gap-4 text-sm mt-2">
+                <p><span class="font-bold">City:</span> Dallas Fortworth</p>
+                <p><span class="font-bold">Email:</span> sunnyside@hello.com</p>
+                <p><span class="font-bold">State:</span> Texas</p>
+                <p><span class="font-bold">Phone:</span> 123-123-1234</p>
+                <p><span class="font-bold">Postal Code:</span> 38294</p>
+            </div>
+            <button class="mt-4 w-full bg-black text-white p-2 rounded-lg">View my current home</button>
+        </div>
+    </div>
+    
+    <footer class="text-center p-4 mt-8 bg-gray-900 text-white">
+        <p>&copy; 2025, Adopto</p>
+    </footer>
+</body>
+</html>
