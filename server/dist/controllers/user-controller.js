@@ -42,8 +42,10 @@ export const createUser = async (req, res) => {
     if (!validator.isEmail(email)) {
         return res.status(400).json({ message: 'Invalid email format.' });
     }
+    // Normalize email to lowercase for case-insensitive checking
+    const emailNormalized = email.toLowerCase();
     // Check if the email is already registered
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await User.findOne({ where: { email: emailNormalized } });
     if (existingUser) {
         return res.status(400).json({ message: 'Email is already registered.' });
     }
@@ -63,7 +65,7 @@ export const createUser = async (req, res) => {
         // Create the new user with quiz_parms
         const newUser = await User.create({
             username,
-            email,
+            email: emailNormalized, // Save the normalized email
             password: hashedPassword,
             quiz_parms
         });

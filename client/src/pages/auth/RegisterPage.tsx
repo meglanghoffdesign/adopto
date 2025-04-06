@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage: React.FC = () => {
   const [form, setForm] = useState({
@@ -8,15 +8,48 @@ const RegisterPage: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // for redirection after registration
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add signup logic here (e.g., validation, API call)
-    console.log("Signing up with:", form);
+
+    // Basic validation
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Redirect user to login page after successful registration
+        navigate("/login");
+      } else {
+        // Show error message if registration failed
+        setError(data.message || "An error occurred. Please try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error("Registration error:", err);
+    }
   };
 
   return (
@@ -28,14 +61,11 @@ const RegisterPage: React.FC = () => {
       </div>
 
       {/* Form Container */}
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white text-center"
-      >
+      <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white text-center">
         <h2 className="text-xl font-bold mb-1">Welcome!</h2>
-        <p className="text-sm text-gray-700 mb-6">Let’s get you step up!</p>
+        <p className="text-sm text-gray-700 mb-6">Let’s get you set up!</p>
 
-        {/* Username */}
+        {/* Username Field */}
         <div className="text-left mb-4">
           <label className="block font-medium mb-1">Username</label>
           <input
@@ -45,10 +75,11 @@ const RegisterPage: React.FC = () => {
             value={form.username}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-200 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            required
           />
         </div>
 
-        {/* Email */}
+        {/* Email Field */}
         <div className="text-left mb-4">
           <label className="block font-medium mb-1">Email</label>
           <input
@@ -58,10 +89,11 @@ const RegisterPage: React.FC = () => {
             value={form.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-200 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            required
           />
         </div>
 
-        {/* Password */}
+        {/* Password Field */}
         <div className="text-left mb-4">
           <label className="block font-medium mb-1">Password</label>
           <input
@@ -71,10 +103,11 @@ const RegisterPage: React.FC = () => {
             value={form.password}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-200 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            required
           />
         </div>
 
-        {/* Confirm Password */}
+        {/* Confirm Password Field */}
         <div className="text-left mb-6">
           <label className="block font-medium mb-1">Confirm Password</label>
           <input
@@ -84,15 +117,19 @@ const RegisterPage: React.FC = () => {
             value={form.confirmPassword}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-200 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            required
           />
         </div>
+
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
         {/* Sign Up Button */}
         <button
           type="submit"
           className="w-full bg-black text-white py-3 rounded font-semibold hover:opacity-90 transition mb-4"
         >
-          Sign up
+          Sign Up
         </button>
 
         {/* Login Link */}
