@@ -45,6 +45,7 @@ export const getPets = async (req: Request, res: Response) => {
     }
 
     const data = await response.json();
+    console.log('Fetched data from Petfinder:', data); 
     res.json(data);
   } catch (error) {
     console.error('Error fetching pets:', error);

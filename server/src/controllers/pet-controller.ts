@@ -1,5 +1,48 @@
 import { Request, Response } from 'express';
+import fetch from 'node-fetch'; // Ensure you are using node-fetch
 import { Pet } from '../models/pet.js'; // Assuming Pet is the model you are using
+
+// Define the expected structure of the Petfinder API response
+interface PetfinderAPIResponse {
+  animals: Array<{
+    id: number;
+    name: string;
+    species: string;
+    breed: string;
+    age: string;
+    size: string;
+    status: string;
+    location: string;
+    description: string;
+  }>;
+}
+
+// Function to get access token from Petfinder API
+async function getAccessToken() {
+  try {
+    const response = await fetch("https://api.petfinder.com/v2/oauth2/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        grant_type: "client_credentials",
+        client_id: process.env.PETFINDER_API_KEY,
+        client_secret: process.env.PETFINDER_API_SECRET,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Petfinder API token request failed with status ${response.status}`);
+    }
+
+    const data = (await response.json()) as { access_token: string };
+    return data.access_token;
+  } catch (error: any) {
+    console.error("Error getting Petfinder API access token:", error);
+    throw new Error("Failed to get access token from Petfinder API");
+  }
+}
 
 // GET /pets - Get all pets
 export const getAllPets = async (_req: Request, res: Response) => {
@@ -42,10 +85,8 @@ export const createPet = async (req: Request, res: Response) => {
   } = req.body;
 
   try {
-    // If fetch_timestamp is missing, set it to the current date
     const fetch_timestamp = new Date();
 
-    // Create the pet entry in the database, explicitly passing null for `createdAt` and `updatedAt`
     const newPet = await Pet.create({
       name,
       species,
@@ -55,12 +96,11 @@ export const createPet = async (req: Request, res: Response) => {
       description,
       status,
       location,
-      organization_id,  // Ensure organization_id is provided in the request body
-      distance,          // Ensure distance is provided in the request body
-      fetch_timestamp,   // Use the current timestamp for fetch_timestamp
+      organization_id,
+      distance,
+      fetch_timestamp,
     });
 
-    // Return the newly created pet
     res.status(201).json(newPet);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
@@ -112,23 +152,52 @@ export const deletePet = async (req: Request, res: Response) => {
 
 // POST /pets/search - Search for pets based on filters
 export const searchPets = async (req: Request, res: Response) => {
-  const { species, breed, age, size, status, location } = req.body;
-  
-  try {
-    const searchFilters: any = {};
-    if (species) searchFilters.species = species;
-    if (breed) searchFilters.breed = breed;
-    if (age) searchFilters.age = age;
-    if (size) searchFilters.size = size;
-    if (status) searchFilters.status = status;
-    if (location) searchFilters.location = location;
+  const { species, breed, age, size, status, location, distance } = req.body;
 
-    const pets = await Pet.findAll({
-      where: searchFilters,
+  try {
+    // Fetch access token for Petfinder API
+    const token = await getAccessToken();
+
+    // Build query string for Petfinder API
+    const queryParams = new URLSearchParams({
+      ...(species && { species }),
+      ...(breed && { breed }),
+      ...(age && { age }),
+      ...(size && { size }),
+      ...(status && { status }),
+      ...(location && { location }),
+      ...(distance && { distance }),
     });
 
-    res.json(pets);
+    // Call Petfinder API with the search filters
+    const response = await fetch(`https://api.petfinder.com/v2/animals?${queryParams.toString()}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Type the response data using type assertion
+    const data = (await response.json()) as PetfinderAPIResponse;
+
+    // If you have pets in your local database that match the filters, you can merge or return them along with Petfinder API pets
+    const petsFromDb = await Pet.findAll({
+      where: {
+        ...(species && { species }),
+        ...(breed && { breed }),
+        ...(age && { age }),
+        ...(size && { size }),
+        ...(status && { status }),
+        ...(location && { location }),
+      },
+    });
+
+    // Combine the results (optional)
+    const combinedPets = [...data.animals, ...petsFromDb];
+
+    // Return the combined list
+    res.json(combinedPets);
   } catch (error: any) {
+    console.error("Error fetching pets:", error);
     res.status(500).json({ message: error.message });
   }
 };
