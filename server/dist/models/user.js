@@ -18,9 +18,21 @@ export function UserFactory(sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true, // Ensure the email is unique
+            validate: {
+                isEmail: true, // Ensure it's a valid email format
+            },
+        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        quiz_parms: {
+            type: DataTypes.JSONB,
+            defaultValue: {},
         },
     }, {
         tableName: 'users',

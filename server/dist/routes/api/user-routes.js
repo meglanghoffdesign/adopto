@@ -6,7 +6,7 @@ router.get('/', getAllUsers);
 // GET /users/:id - Get a user by id
 router.get('/:id', getUserById);
 // POST /users - Create a new user
-router.post('/', createUser);
+router.post('/register', createUser);
 // PUT /users/:id - Update a user by id
 router.put('/:id', updateUser);
 // DELETE /users/:id - Delete a user by id
