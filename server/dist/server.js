@@ -1,19 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var forceDatabaseRefresh = false;
-var dotenv_1 = require("dotenv");
-dotenv_1.default.config();
-var express_1 = require("express");
-var index_js_1 = require("./routes/index.js");
-var index_js_2 = require("./models/index.js");
-var app = (0, express_1.default)();
-var PORT = process.env.PORT || 3001;
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import routes from './routes/index.js';
+import { sequelize } from './models/index.js';
+import petfinderRoutes from './routes/petfinder-routes.js';
+const app = express();
+const PORT = process.env.PORT || 3001; // This line binds to the correct port
 // Serves static files in the entire client's dist folder
-app.use(express_1.default.static('../client/dist'));
-app.use(express_1.default.json());
-app.use(index_js_1.default);
-index_js_2.sequelize.sync({ force: forceDatabaseRefresh }).then(function () {
-    app.listen(PORT, function () {
-        console.log("Server is listening on port ".concat(PORT));
+app.use(express.static('../client/dist'));
+app.use(express.json());
+app.use(routes);
+app.use('/api/', petfinderRoutes); // Mount Petfinder routes under /api/petfinder
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}`);
     });
 });

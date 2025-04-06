@@ -3,7 +3,9 @@ dotenv.config();
 
 import { Sequelize } from 'sequelize';
 import { UserFactory } from './user.js';
-import { TicketFactory } from './ticket.js';
+import { PetFactory } from './pet.js';
+import { FavoriteFactory } from './favorite.js';
+import { OrganizationFactory } from './organization.js';
 
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)
@@ -15,10 +17,20 @@ const sequelize = process.env.DB_URL
       },
     });
 
+// Initialize models
 const User = UserFactory(sequelize);
-const Ticket = TicketFactory(sequelize);
+const Pet = PetFactory(sequelize);
+const Favorite = FavoriteFactory(sequelize);
+const Organization = OrganizationFactory(sequelize);
 
-User.hasMany(Ticket, { foreignKey: 'assignedUserId' });
-Ticket.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
+// Define associations (relationships between models)
+User.hasMany(Favorite, { foreignKey: 'userId' });
+Favorite.belongsTo(User, { foreignKey: 'userId' });
 
-export { sequelize, User, Ticket };
+Pet.hasMany(Favorite, { foreignKey: 'petId' });
+Favorite.belongsTo(Pet, { foreignKey: 'petId' });
+
+Organization.hasMany(Pet, { foreignKey: 'organizationId' });
+Pet.belongsTo(Organization, { foreignKey: 'organizationId' });
+
+export { sequelize, User, Pet, Favorite, Organization };

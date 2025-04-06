@@ -1,9 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var ticket_routes_js_1 = require("./ticket-routes.js");
-var user_routes_js_1 = require("./user-routes.js");
-var router = (0, express_1.Router)();
-router.use('/tickets', ticket_routes_js_1.ticketRouter);
-router.use('/users', user_routes_js_1.userRouter);
-exports.default = router;
+import { Router } from 'express';
+import { petRouter } from './pet-routes.js';
+import { favoriteRouter } from './favorite-routes.js';
+import { userRouter } from './user-routes.js';
+const router = Router();
+router.use('/pets', petRouter); // All pet-related routes
+router.use('/favorites', favoriteRouter); // All favorite-related routes
+router.use('/users', userRouter);
+export default router;
