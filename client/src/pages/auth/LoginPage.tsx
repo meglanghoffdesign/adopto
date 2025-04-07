@@ -1,14 +1,39 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // for redirection after login
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add login logic here (API call, validation, etc.)
-    console.log("Logging in with:", { username, password });
+
+    try {
+      const response = await fetch("http://localhost:3001/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store the JWT token in localStorage after successful login
+        localStorage.setItem("authToken", data.token);
+        // Redirect user to the welcome page or dashboard
+        navigate("/welcome");
+      } else {
+        // Show error message if the login failed
+        setError(data.message || "Invalid login credentials.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error("Login error:", err);
+    }
   };
 
   return (
@@ -20,10 +45,7 @@ const LoginPage: React.FC = () => {
       </div>
 
       {/* Form Container */}
-      <form
-        onSubmit={handleLogin}
-        className="w-full max-w-sm bg-white text-center"
-      >
+      <form onSubmit={handleLogin} className="w-full max-w-sm bg-white text-center">
         <h2 className="text-xl font-bold mb-1">Welcome Back!</h2>
         <p className="text-sm text-gray-700 mb-6">Let’s get you logged in</p>
 
@@ -36,6 +58,7 @@ const LoginPage: React.FC = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="w-full px-4 py-2 border border-gray-200 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            required
           />
         </div>
 
@@ -48,8 +71,12 @@ const LoginPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-2 border border-gray-200 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            required
           />
         </div>
+
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
         {/* Login Button */}
         <button

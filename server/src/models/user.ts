@@ -22,9 +22,9 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public readonly updatedAt!: Date;
 
   // Hash the password before saving the user
-  public async setPassword(password: string) {
+  public static async setPassword(password: string) {
     const saltRounds = 10;
-    this.password = await bcrypt.hash(password, saltRounds);
+    return await bcrypt.hash(password, saltRounds);
   }
 }
 
@@ -62,10 +62,10 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       sequelize,
       hooks: {
         beforeCreate: async (user: User) => {
-          await user.setPassword(user.password);
+          user.password = await User.setPassword(user.password); 
         },
         beforeUpdate: async (user: User) => {
-          await user.setPassword(user.password);
+          user.password = await User.setPassword(user.password);
         },
       }
     }

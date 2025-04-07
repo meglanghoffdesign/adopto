@@ -65,10 +65,55 @@ const QuizPage: React.FC = () => {
     if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     console.log("Final quiz answers:", answers);
-    // TODO: Map answers to filters and call Petfinder
-    navigate("/home"); // or wherever the results page is
+  
+    // Map quiz answers to API search filters
+    const quizFilters = {
+      species: "", // You'll need to map this based on your quiz answers
+      breed: "", // Map from quiz answers
+      size: "", // Map from quiz answers
+      gender: "", // Map from quiz answers
+      age: "", // Map from quiz answers
+      color: "", // Map from quiz answers
+      coat: "", // Map from quiz answers
+      status: "", // Map from quiz answers
+      goodWithChildren: "", // Map from quiz answers
+      goodWithDogs: "", // Map from quiz answers
+      goodWithCats: "", // Map from quiz answers
+      location: "", // This comes from the location input in quiz
+      distance: "", // This comes from the distance input in quiz
+    };
+  
+    // Set location and distance specifically from the location answer in quiz
+    if (typeof answers[7] === "object") {
+      quizFilters.location = answers[7].location;
+      quizFilters.distance = answers[7].distance;
+    }
+  
+    try {
+      const response = await fetch("/api/search-pets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(quizFilters),
+      });
+  
+      if (response.ok) {
+        const pets = await response.json();
+        console.log("Found pets:", pets);
+        // Handle success (e.g., navigate to results page with the pets)
+        navigate("/results", { state: { pets } });
+      } else {
+        const errorData = await response.json();
+        console.log("Error:", errorData.message);
+        // Handle error (e.g., show error message)
+      }
+    } catch (error) {
+      console.log("An error occurred:", error);
+      // Handle network or fetch errors
+    }
   };
 
   return (
