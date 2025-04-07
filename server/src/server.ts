@@ -5,6 +5,7 @@ import express from 'express';
 import routes from './routes/index.js';
 import { sequelize } from './models/index.js';
 import petfinderRoutes from './routes/petfinder-routes.js'; 
+import searchRoutes from './routes/api/search-routes.js';  // Import the new search-routes
 import { authenticateToken } from './middleware/auth.js'; // Import the middleware
 
 
@@ -16,7 +17,10 @@ app.use(express.static('../client/dist'));
 
 app.use(express.json());
 app.use(routes);
-app.use('/api/', authenticateToken, petfinderRoutes);  // Mount Petfinder routes under /api/petfinder
+
+// Mount routes
+app.use('/api/search', authenticateToken, searchRoutes);  // Use search-routes under /api/search
+app.use('/api/petfinder', authenticateToken, petfinderRoutes);  // Mount Petfinder routes under /api/petfinder
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
