@@ -17,13 +17,13 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     // Basic validation
     if (form.password !== form.confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
@@ -34,11 +34,12 @@ const RegisterPage: React.FC = () => {
           username: form.username,
           email: form.email,
           password: form.password,
+          confirmPassword: form.confirmPassword,  // Send confirmPassword here
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         // Redirect user to login page after successful registration
         navigate("/login");
