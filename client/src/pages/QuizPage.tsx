@@ -70,7 +70,7 @@ const QuizPage: React.FC = () => {
   
     // Map quiz answers to API search filters
     const quizFilters = {
-      species: "", // You'll need to map this based on your quiz answers
+      species: "", // Map from quiz answers
       breed: "", // Map from quiz answers
       size: "", // Map from quiz answers
       gender: "", // Map from quiz answers
@@ -81,21 +81,25 @@ const QuizPage: React.FC = () => {
       goodWithChildren: "", // Map from quiz answers
       goodWithDogs: "", // Map from quiz answers
       goodWithCats: "", // Map from quiz answers
-      location: "", // This comes from the location input in quiz
-      distance: "", // This comes from the distance input in quiz
+      location: "", // From location input
+      distance: "", // From distance input
     };
   
-    // Set location and distance specifically from the location answer in quiz
+    // Set location and distance from the location answer in quiz
     if (typeof answers[7] === "object") {
       quizFilters.location = answers[7].location;
       quizFilters.distance = answers[7].distance;
     }
   
+    // Get the token from localStorage
+    const token = localStorage.getItem("authToken");
+  
     try {
-      const response = await fetch("/api/search-pets", {
+      const response = await fetch("/api/search/search-pets", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Add token in the header
         },
         body: JSON.stringify(quizFilters),
       });
@@ -103,7 +107,7 @@ const QuizPage: React.FC = () => {
       if (response.ok) {
         const pets = await response.json();
         console.log("Found pets:", pets);
-        // Handle success (e.g., navigate to results page with the pets)
+        // Navigate to the results page
         navigate("/results", { state: { pets } });
       } else {
         const errorData = await response.json();
