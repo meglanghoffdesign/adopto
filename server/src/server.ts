@@ -22,15 +22,15 @@ const PORT = process.env.PORT || 3001;
 // Serve static files from the React app (build directory)
 app.use(express.static(path.join(__dirname, '..', '..', 'client', 'dist')));
 
-// Prevent caching on API requests (including /petfinder/pets)
-app.use('/api/petfinder', (_req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');  // Prevent caching
-  next();
-});
-app.use('/api/search', (_req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');  // Prevent caching
-  next();
-});
+// // Prevent caching on API requests (including /petfinder/pets)
+// app.use('/api/petfinder', (_req, res, next) => {
+//   res.setHeader('Cache-Control', 'no-store');  // Prevent caching
+//   next();
+// });
+// app.use('/api/search', (_req, res, next) => {
+//   res.setHeader('Cache-Control', 'no-store');  // Prevent caching
+//   next();
+// });
 
 // Middleware to parse JSON
 app.use(express.json());
