@@ -21,9 +21,9 @@ export function UserFactory(sequelize) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true, // Ensure the email is unique
+            unique: true,
             validate: {
-                isEmail: true, // Ensure it's a valid email format
+                isEmail: true,
             },
         },
         password: {
@@ -44,7 +44,7 @@ export function UserFactory(sequelize) {
             beforeUpdate: async (user) => {
                 user.password = await User.setPassword(user.password);
             },
-        }
+        },
     });
     return User;
 }

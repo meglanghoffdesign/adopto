@@ -1,12 +1,24 @@
 import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 import bcrypt from 'bcrypt';
 
+// Define a type-safe structure for quiz parameters
+export interface QuizParams {  // Add export here
+  allergies?: string[]; // e.g., ["dogs"]
+  livingSituation?: 'apartment' | 'house_no_yard' | 'house_with_yard';
+  hasKids?: boolean;
+  hasOtherPets?: boolean;
+  availableTime?: 'low' | 'medium' | 'high'; // maps to pet age
+  activityLevel?: 'low' | 'medium' | 'high'; // maps to pet size
+  location?: string;
+  distance?: number;
+}
+
 interface UserAttributes {
   id: number;
   username: string;
   email: string;
   password: string;
-  quiz_parms: object; // Adjust type if needed
+  quiz_parms: QuizParams;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -16,7 +28,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public username!: string;
   public email!: string;
   public password!: string;
-  public quiz_parms!: object;
+  public quiz_parms!: QuizParams;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -40,12 +52,12 @@ export function UserFactory(sequelize: Sequelize): typeof User {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {  // Add email field to the model
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,  // Ensure the email is unique
+        unique: true,
         validate: {
-          isEmail: true, // Ensure it's a valid email format
+          isEmail: true,
         },
       },
       password: {
@@ -62,12 +74,12 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       sequelize,
       hooks: {
         beforeCreate: async (user: User) => {
-          user.password = await User.setPassword(user.password); 
+          user.password = await User.setPassword(user.password);
         },
         beforeUpdate: async (user: User) => {
           user.password = await User.setPassword(user.password);
         },
-      }
+      },
     }
   );
 
