@@ -8,6 +8,7 @@ import WelcomePage from "./pages/WelcomePage";
 import QuizPage from "./pages/QuizPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import PetProfilePage from "./pages/PetProfilePage";
+import HomePage from "./pages/Homepage";
 
 const App: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ const App: React.FC = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/welcome" element={<WelcomePage />} />
       <Route path="/quiz" element={<QuizPage />} />
-      <Route path="/home" element={<div>🐶 Placeholder Home Page</div>} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/pet/:id" element={<PetProfilePage />} />
     </Routes>
