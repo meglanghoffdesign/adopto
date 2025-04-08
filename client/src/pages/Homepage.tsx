@@ -10,32 +10,53 @@ const HomePage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({ species: "", gender: "", age: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        const res = await fetch(`/api/pets?page=${currentPage}`);
-        const data = await res.json();
-        setPets(data.animals || []);
-      } catch (err) {
-        console.error("Failed to fetch pets", err);
-      }
-    };
+  const fetchPets = async () => {
+    setLoading(true);
+    setError(null);
+  
+    const queryParams = new URLSearchParams({
+      page: currentPage.toString(),
+      ...filters,
+    });
+  
+    try {
+      const res = await fetch(`/api/pets?${queryParams}`);
+      console.log("Response status:", res.status);
+  
+      const text = await res.text();
+      console.log("Raw response text:", text);
+  
+      const data = JSON.parse(text);
+      const petsArray = data.animals || data.pets || data || [];
+  
+      setPets(petsArray);
+    } catch (err) {
+      console.error("Failed to fetch pets:", err);
+      setError("Could not load pets. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
 
+  useEffect(() => {
     fetchPets();
-  }, [currentPage]);
+  }, [currentPage, filters]);
 
   const handleApplyFilters = (newFilters: typeof filters) => {
     setFilters(newFilters);
-    console.log("Applying filters:", newFilters);
-    // TODO: Apply filters to API call once backend is ready
+    setCurrentPage(1); // Reset pagination on filter change
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
-      <div className="flex items-center justify-between bg-white px-6 py-4 shadow">
+      <header className="flex items-center justify-between bg-white px-6 py-4 shadow">
         <div className="flex items-center space-x-2">
           <img src="/Adopto_Logo_Favicon.svg" className="w-6 h-6" alt="logo" />
           <h1 className="text-xl font-bold text-purple-600">Adopto</h1>
@@ -48,13 +69,13 @@ const HomePage: React.FC = () => {
             View my favorites
           </button>
           <button
-            className="bg-black text-white px-4 py-2 rounded"
             onClick={() => setShowFilters(true)}
+            className="bg-black text-white px-4 py-2 rounded"
           >
             Filters
           </button>
         </div>
-      </div>
+      </header>
 
       <div className="flex flex-1 p-6 gap-6">
         {/* Sidebar */}
@@ -77,18 +98,24 @@ const HomePage: React.FC = () => {
 
         {/* Pet Results Grid */}
         <main className="flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {pets.map((pet) => (
-              <PetCard key={pet.id} pet={pet} />
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={10} // Adjust this if your backend gives a real total
-            onPageChange={setCurrentPage}
-          />
+          {loading ? (
+            <p className="text-center text-gray-500">Loading pets...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">{error}</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {pets.map((pet) => (
+                  <PetCard key={pet.id} pet={pet} />
+                ))}
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={10} // Update once your API returns real pagination
+                onPageChange={setCurrentPage}
+              />
+            </>
+          )}
         </main>
       </div>
 
