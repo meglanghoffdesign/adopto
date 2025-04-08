@@ -43,9 +43,12 @@ export const searchPets = async (req: Request, res: Response) => {
       if (color) filters.color = color;
       if (coat) filters.coat = coat;
       if (status) filters.status = status;
-      if (goodWithChildren !== undefined) filters.goodWithChildren = goodWithChildren;
-      if (goodWithDogs !== undefined) filters.goodWithDogs = goodWithDogs;
-      if (goodWithCats !== undefined) filters.goodWithCats = goodWithCats;
+
+      // Updated these to use snake_case instead of camelCase
+      if (goodWithChildren !== '') filters.good_with_children = goodWithChildren || null;
+      if (goodWithDogs !== '') filters.good_with_dogs = goodWithDogs || null;
+      if (goodWithCats !== '') filters.good_with_cats = goodWithCats || null;
+
       if (location) filters.location = location;
       if (distance) filters.distance = distance;
 
