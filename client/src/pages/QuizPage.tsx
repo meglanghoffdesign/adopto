@@ -48,9 +48,7 @@ const quizData = [
 
 const QuizPage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<QuizAnswer[]>(
-    Array(quizData.length).fill("")
-  );
+  const [answers, setAnswers] = useState<QuizAnswer[]>(Array(quizData.length).fill(""));
   const navigate = useNavigate();
   const current = quizData[currentIndex];
 
@@ -68,28 +66,17 @@ const QuizPage: React.FC = () => {
   const handleFinalSubmit = async () => {
     console.log("Final quiz answers:", answers);
   
-    // Map quiz answers to API search filters
-    const quizFilters = {
-      species: "", // Map from quiz answers
-      breed: "", // Map from quiz answers
-      size: "", // Map from quiz answers
-      gender: "", // Map from quiz answers
-      age: "", // Map from quiz answers
-      color: "", // Map from quiz answers
-      coat: "", // Map from quiz answers
-      status: "", // Map from quiz answers
-      goodWithChildren: "", // Map from quiz answers
-      goodWithDogs: "", // Map from quiz answers
-      goodWithCats: "", // Map from quiz answers
-      location: "", // From location input
-      distance: "", // From distance input
+    // Map the quiz answers to the expected format for the backend
+    const quizParams = {
+      allergies: [], // Set allergies based on the quiz answers
+      livingSituation: "", // Set based on living situation answer
+      hasKids: answers[3] === "I have children" ? true : false, // Map based on "Do you have any children?"
+      hasOtherPets: answers[4] !== "No pets", // Map based on "Do you have any other pets?"
+      availableTime: "", // Set based on how much time they can spend with pets
+      activityLevel: "", // Set based on activity level
+      location: typeof answers[7] === "object" ? answers[7].location : "",
+      distance: typeof answers[7] === "object" ? answers[7].distance : "",
     };
-  
-    // Set location and distance from the location answer in quiz
-    if (typeof answers[7] === "object") {
-      quizFilters.location = answers[7].location;
-      quizFilters.distance = answers[7].distance;
-    }
   
     // Get the token from localStorage
     const token = localStorage.getItem("authToken");
@@ -101,7 +88,7 @@ const QuizPage: React.FC = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Add token in the header
         },
-        body: JSON.stringify(quizFilters),
+        body: JSON.stringify(quizParams),
       });
   
       if (response.ok) {

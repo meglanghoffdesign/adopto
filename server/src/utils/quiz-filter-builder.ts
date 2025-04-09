@@ -6,44 +6,43 @@ export const buildFiltersFromQuiz = (quizParams: QuizParams) => {
 
   // Map quiz parameters to filters for pet search
   if (quizParams.allergies) {
-    filters.allergies = { $notIn: quizParams.allergies };  // Assuming we filter out pets that match any allergies
+    filters.allergies = { $notIn: quizParams.allergies };
   }
 
   if (quizParams.livingSituation) {
-    // Assuming living situation maps to species/size compatibility
     if (quizParams.livingSituation === 'apartment') {
-      filters.species = { $in: ['cat', 'small_dog'] };  // Example: apartments may only support cats and small dogs
+      filters.species = { $in: ['cat', 'small_dog'] };
     } else if (quizParams.livingSituation === 'house_no_yard') {
-      filters.species = { $in: ['dog'] };  // Medium-sized dogs, for example
+      filters.species = { $in: ['dog'] };
     } else if (quizParams.livingSituation === 'house_with_yard') {
-      filters.species = { $in: ['dog', 'large_dog'] };  // Larger dogs may be okay
+      filters.species = { $in: ['dog', 'large_dog'] };
     }
   }
 
+  // If the user has kids, only show pets that are good with children
   if (quizParams.hasKids !== undefined) {
-    filters.goodWithChildren = quizParams.hasKids;  // Only show pets that are good with children if the user has kids
+    filters.goodWithChildren = quizParams.hasKids === true ? true : false;  // Explicitly set to true or false
   }
 
+  // If the user has other pets, only show pets that are good with other pets (dogs or cats)
   if (quizParams.hasOtherPets !== undefined) {
-    filters.goodWithDogs = quizParams.hasOtherPets;  // Similar logic for pets compatibility
-    filters.goodWithCats = quizParams.hasOtherPets;
+    filters.goodWithDogs = quizParams.hasOtherPets === true ? true : false;  // Explicitly set to true or false
+    filters.goodWithCats = quizParams.hasOtherPets === true ? true : false;  // Explicitly set to true or false
   }
 
   if (quizParams.availableTime) {
-    // Map time to pet's age range: adjust based on your specific criteria
     if (quizParams.availableTime === 'low') {
-      filters.age = { $in: ['adult', 'senior'] };  // Maybe low time = senior/adult pets
+      filters.age = { $in: ['adult', 'senior'] };
     } else if (quizParams.availableTime === 'medium') {
-      filters.age = { $in: ['young'] };  // Medium time = young pets
+      filters.age = { $in: ['young'] };
     } else if (quizParams.availableTime === 'high') {
-      filters.age = { $in: ['puppy', 'young'] };  // High time = puppies
+      filters.age = { $in: ['puppy', 'young'] };
     }
   }
 
   if (quizParams.activityLevel) {
-    // Match activity level to pet size/activity requirements
     if (quizParams.activityLevel === 'low') {
-      filters.activityLevel = 'low';  // Possibly filter based on pet activity level
+      filters.activityLevel = 'low';
     } else if (quizParams.activityLevel === 'medium') {
       filters.activityLevel = 'medium';
     } else if (quizParams.activityLevel === 'high') {
@@ -51,7 +50,6 @@ export const buildFiltersFromQuiz = (quizParams: QuizParams) => {
     }
   }
 
-  // Handle location and distance if necessary
   if (quizParams.location && quizParams.distance) {
     filters.location = { $near: quizParams.location, $maxDistance: quizParams.distance };
   }
