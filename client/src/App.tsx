@@ -21,6 +21,8 @@ const App: React.FC = () => {
       <Route path="/home" element={<HomePage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/pet/:id" element={<PetProfilePage />} />
+    
+      {/* Add more routes as needed */}
     </Routes>
   );
 };

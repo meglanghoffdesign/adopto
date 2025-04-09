@@ -95,7 +95,7 @@ const QuizPage: React.FC = () => {
         const pets = await response.json();
         console.log("Found pets:", pets);
         // Navigate to the results page
-        navigate("/results", { state: { pets } });
+        navigate("/home", { state: { pets } });
       } else {
         const errorData = await response.json();
         console.log("Error:", errorData.message);
@@ -111,8 +111,8 @@ const QuizPage: React.FC = () => {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 text-center">
       {/* Logo */}
       <div className="flex items-center mb-4">
-        <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-8 w-8 mr-2" />
-        <span className="text-2xl font-semibold text-purple-600">Adopto</span>
+        <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-20 w-50 mr-2" />
+        
       </div>
 
       {/* Back Button */}
@@ -202,7 +202,7 @@ const QuizPage: React.FC = () => {
             <button
               key={index}
               onClick={() => handleSelect(opt)}
-              className="bg-black text-white py-3 rounded hover:opacity-90 transition"
+              className="w-full bg-black text-white py-3 rounded font-semibold transition duration-300 hover:bg-purple-500"
             >
               {opt}
             </button>

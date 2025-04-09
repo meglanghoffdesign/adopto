@@ -40,8 +40,7 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
       {/* Logo */}
       <div className="flex items-center mb-6">
-        <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-8 w-8 mr-2" />
-        <span className="text-2xl font-semibold text-purple-600">Adopto</span>
+      <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-20 w-50 mr-2" />
       </div>
 
       {/* Form Container */}
@@ -80,11 +79,11 @@ const LoginPage: React.FC = () => {
 
         {/* Login Button */}
         <button
-          type="submit"
-          className="w-full bg-black text-white py-3 rounded font-semibold hover:opacity-90 transition mb-4"
-        >
-          Login
-        </button>
+  type="submit"
+  className="w-full bg-black text-white py-3 rounded font-semibold transition duration-300 hover:bg-purple-500"
+>
+  Login
+</button>
 
         {/* Signup Link */}
         <p className="text-sm text-gray-600">

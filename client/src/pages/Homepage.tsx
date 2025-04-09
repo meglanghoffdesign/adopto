@@ -37,8 +37,8 @@ const HomePage: React.FC = () => {
       {/* Navbar */}
       <div className="flex items-center justify-between bg-white px-6 py-4 shadow">
         <div className="flex items-center space-x-2">
-          <img src="/Adopto_Logo_Favicon.svg" className="w-6 h-6" alt="logo" />
-          <h1 className="text-xl font-bold text-purple-600">Adopto</h1>
+          <img src="/Adopto_Logo_Favicon.svg" className="w-20 h-50" alt="logo" />
+          
         </div>
         <div className="space-x-3">
           <button
@@ -102,8 +102,8 @@ const HomePage: React.FC = () => {
       {/* Footer */}
       <footer className="bg-black text-white text-center py-6 mt-auto">
         <div className="flex justify-center items-center space-x-2">
-          <img src="/Adopto_Logo.svg" className="w-5 h-5" alt="logo" />
-          <span className="font-bold">Adopto</span>
+          <img src="/Adopto_Logo.svg" className="w-20 h-50" alt="logo" />
+          
         </div>
         <p className="text-xs mt-1">© 2025, Adopto</p>
       </footer>
