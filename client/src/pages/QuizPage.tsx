@@ -77,7 +77,10 @@ const QuizPage: React.FC = () => {
       location: typeof answers[7] === "object" ? answers[7].location : "",
       distance: typeof answers[7] === "object" ? answers[7].distance : "",
     };
-  
+
+    // Save the quiz answers to localStorage
+    localStorage.setItem("quizResults", JSON.stringify(quizParams));
+
     // Get the token from localStorage
     const token = localStorage.getItem("authToken");
   
@@ -95,7 +98,7 @@ const QuizPage: React.FC = () => {
         const pets = await response.json();
         console.log("Found pets:", pets);
         // Navigate to the results page
-        navigate("/results", { state: { pets } });
+        navigate("/home", { state: { pets } });
       } else {
         const errorData = await response.json();
         console.log("Error:", errorData.message);

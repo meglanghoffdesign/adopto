@@ -41,6 +41,7 @@ app.use(routes);
 // API Routes - Petfinder and Search routes
 app.use('/api/petfinder', petfinderRoutes);  // Petfinder routes
 app.use('/api/search', authenticateToken, searchRoutes);  // Search routes with JWT authentication
+app.use('/api/pets/search', authenticateToken);
 
 // Catch-all route for React Router (if needed)
 app.get('*', (_req, res) => {
