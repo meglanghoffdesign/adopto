@@ -14,12 +14,51 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const fetchPets = async () => {
-      try {
-        const res = await fetch(`/api/pets?page=${currentPage}`);
-        const data = await res.json();
-        setPets(data.animals || []);
-      } catch (err) {
-        console.error("Failed to fetch pets", err);
+      const quizResults = JSON.parse(localStorage.getItem("quizResults") || "{}");
+      const authToken = localStorage.getItem("authToken");
+
+      // Fetch pets based on quiz results if available
+      if (quizResults && Object.keys(quizResults).length > 0) {
+        try {
+          const res = await fetch(`/api/pets/search`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`, // Attach the token here
+            },
+            body: JSON.stringify({
+              page: currentPage,
+              quizResults,
+            }),
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to fetch pets");
+          }
+
+          const data = await res.json();
+          setPets(data.animals || []);
+        } catch (err) {
+          console.error("Failed to fetch pets", err);
+        }
+      } else {
+        // Fetch all pets if no quiz results
+        try {
+          const res = await fetch(`/api/pets?page=${currentPage}`, {
+            headers: {
+              Authorization: `Bearer ${authToken}`, // Attach the token here
+            },
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to fetch pets");
+          }
+
+          const data = await res.json();
+          setPets(data.animals || []);
+        } catch (err) {
+          console.error("Failed to fetch pets", err);
+        }
       }
     };
 
@@ -84,11 +123,16 @@ const HomePage: React.FC = () => {
 
         {/* Pet Results Grid */}
         <main className="flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {pets.map((pet) => (
-              <PetCard key={pet.id} pet={pet} />
-            ))}
-          </div>
+    {/* Pet Cards Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {pets.length > 0 ? (
+        pets.map((pet) => <PetCard key={pet.id} pet={pet} />)
+      ) : (
+        <p className="col-span-full text-center text-gray-500">
+          No pets found. Try adjusting your filters.
+        </p>
+      )}
+    </div>
 
           {/* Pagination */}
           <Pagination
