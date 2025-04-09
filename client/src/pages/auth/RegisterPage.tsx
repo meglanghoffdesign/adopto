@@ -57,14 +57,14 @@ const RegisterPage: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
       {/* Logo */}
       <div className="flex items-center mb-6">
-        <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-8 w-8 mr-2" />
-        <span className="text-2xl font-semibold text-purple-600">Adopto</span>
+        <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-20 w-50 mr-2" />
+       
       </div>
 
       {/* Form Container */}
       <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white text-center">
-        <h2 className="text-xl font-bold mb-1">Welcome!</h2>
-        <p className="text-sm text-gray-700 mb-6">Let’s get you set up!</p>
+        <h2 className="text-xl font-bold mb-1">Ready to Make a Difference?</h2>
+        <p className="text-sm text-gray-700 mb-6">Join Adopto and help give a pet the loving home they deserve.</p>
 
         {/* Username Field */}
         <div className="text-left mb-4">
@@ -128,8 +128,8 @@ const RegisterPage: React.FC = () => {
         {/* Sign Up Button */}
         <button
           type="submit"
-          className="w-full bg-black text-white py-3 rounded font-semibold hover:opacity-90 transition mb-4"
-        >
+          className="w-full bg-black text-white py-3 rounded font-semibold transition duration-300 hover:bg-purple-500"
+>
           Sign Up
         </button>
 

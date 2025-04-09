@@ -7,8 +7,8 @@ const LandingPage: React.FC = () => {
       <div className="bg-white rounded-lg shadow-md w-full max-w-sm text-center p-8">
         {/* Logo */}
         <div className="flex items-center justify-center mb-6">
-          <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-8 w-8 mr-2" />
-          <h1 className="text-2xl font-semibold text-purple-600">Adopto</h1>
+          <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-20 w-50 mr-2" />
+         
         </div>
 
         {/* Illustration */}
@@ -19,10 +19,9 @@ const LandingPage: React.FC = () => {
         />
 
         {/* Headline & Description */}
-        <h2 className="text-xl font-semibold mb-2">Hello World</h2>
+        <h2 className="text-xl font-semibold mb-2">Find Your New Best Friend!</h2>
         <p className="text-sm text-gray-600 leading-relaxed mb-6">
-          Tagline goes here! Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit. Phasellus imperdiet, nulla et.
+        Whether you're a dog person, cat person, or just an animal lover — Adopto connects you with pets looking for a loving home. Let's find your perfect match today.
         </p>
 
         {/* Buttons */}
