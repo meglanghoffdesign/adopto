@@ -1,179 +1,74 @@
 # Adopto App
 
-Welcome to the Pet Adoption App! This platform connects pet seekers with shelters and fosters to help animals find their forever homes.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## Lisence Badge
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## Description
-
-​Adopto is an AI-powered pet matching platform designed to enhance the pet adoption experience for shelters, breeders, and adopters. By leveraging artificial intelligence, Adopto analyzes pet behavior, health, and adoption histories to predict successful matches between pets and potential adopters. This approach aims to reduce return rates and expedite the adoption process. For adopters, Adopto offers personalized pet care advice, training tips, and health alerts to ensure a smooth transition and ongoing support. Shelters and breeders benefit from AI-driven adoption analytics, aiding in optimizing future placements. The platform also plans to integrate veterinary partnerships and enhance donation transparency to further support pet welfare.
-
-## Table of Contents
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-- [Contributing](#contributing)
-- [Tests](#tests)
-- [Questions](#questions)
+Adopto matches you with the perfect pet by using a personalized quiz to filter adoptable animals based on your lifestyle, living situation, and preferences, making pet adoption easier and more tailored to your needs. Built with React, Tailwind CSS, Node.js, Express, and PostgreSQL, Adopto integrates with the Petfinder API to fetch real-time pet listings based on dynamic filters generated from user quiz responses. The app uses JWT for secure authentication, stores quiz data in a flexible jsonb column, and allows users to save favorites, revisit their quiz results, or search with custom filters—all through a streamlined full-stack experience.
 
 ## Features
 - **User Authentication**: Secure login with hashed passwords and JWT-based authentication.
-- **Pet Listings**: Browse available pets for adoption with detailed profiles.
-- **Search and Filter**: Find pets by species, breed, age, and location.
+- **Real-Time Pet Listings**: Integrates with the Petfinder API to show up-to-date adoptable animals.
+- **Favorites System**: Users can save and view favorite pets.
+- **Personalized Quiz**: Matches users with pets based on lifestyle, home type, activity level, and preferences.
+- **Responsive Design**: Mobile-friendly UI built with React and Tailwind CSS.
+
+## Authors
+| author | github                                                    | contact            
+| -------| --------------------------------------------------------- | ------------------------------- | 
+| Amani Akram|[@amaniakram](https://www.github.com/amaniakram) | [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amani-akram-193a3b2b0/)|
+| Zach Donels |[@zachD-ae](https://github.com/ZachD-ae) |  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/zach-donels-026b2bb0)|
+| Meg Langhoff |[@meglanghoffdesign](https://github.com/meglanghoffdesign) |  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/meg-langhoff)|
 
 ## Installation
-Adopto app uses a Kanban board structure, likely to manage pet adoption tasks, workflows, or user journeys. Here’s a quick summary of the installation and usage steps you’ve got:
+To get started, clone the repository to your local machine using the following command:
+git clone https://github.com/meglanghoffdesign/adopto.git
 
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/meglanghoffdesign/kanban_board.git
+Next, navigate into the project directory:
+cd adopto
 
-   cd Adopto
-   ```
+Install dependencies:
+npm install
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+Run the following:
+npm run build
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory with the following keys:
-   ```env
-   PORT=3000
-   DB_CONNECTION=mongodb://localhost:27017/petAdoptionApp
-   JWT_SECRET=yourSecretKey
-   ```
+After that, you can run the project with:
+npm start
 
-4. Start the development server:
-   ```bash
-   npm start
-   ```
+Alternatively, you can view the full project here: https://adopto.onrender.com
 
-5. Access the app in your browser at `http://localhost:3000`.
+## Technologies Used
+- Frontend: React with Tailwind CSS
+- Backend: Node.js with Express
+- Database: PostgreSQL
+- Authentication: JSON Web Tokens
+- API Integration: Petfinder API for fetching adoptable pets
+- Hosting: Render
 
 ## Usage
+For more usage details, visit our detailed documentation in the documentation folder. 
 
-users can log in using the following demo credentials:
+### Registering
+To get started, click the “Register” button on the landing page. Fill out the form with a unique username, valid email, and secure password. Make sure your password and confirmation match before submitting. Upon successful registration, you’ll be directed to the login page.
 
--Username: RadiantComet
+### Login
+If you already have an account, click “Login” and enter your username and password. After logging in, you’ll be redirected to the welcome page where you can begin exploring pets or take the quiz.
 
--Password: password
+### Taking the Quiz 
+Click “Take the Quiz” to answer a series of lifestyle questions about your home, activity level, allergies, and more. Your responses will be used to generate a custom set of filters for pet recommendations. After completing the quiz, you’ll be redirected to the dashboard with results tailored to you.
 
-Once logged in, users will be taken to the Kanban board interface. Tasks are organized into three columns:
+### Interacting with the Dashboard
+The Dashboard displays a list of adoptable pets fetched from the Petfinder API filtered based on your quiz. You can scroll through pets, view basic info at a glance, or click on a pet card to be redirected to their full adoption profile.
 
--To Do
+### Favoriting/Unfavoriting Pets
+To save a pet you’re interested in, click the paw icon on their profile card. This will add them to your list of favorites. Click the heart again to remove them. You can access your favorite pets anytime by navigating to your Favorites tab at the top of the dashboard.
 
--In Progress
-
--Done
-
-Users can:
-
-✅ Create new tasks to manage different stages of pet adoption or other workflows.
-
-✏️ Edit existing tasks to update information or change titles.
-
-🔁 Drag and drop tasks between columns to track progress visually.
-
-🗑️ Delete tasks that are no longer needed.
-
-## Getting Started
-
-To begin using the Adopto, follow these steps:
-1. Visit the app's homepage at [Adopto](http://localhost:3000) (if hosted locally) or the live site URL.
-2. Create an account using your email address.
-3. Log in, take the quiz and browse pets.
-
----
 ## Contributing
+At this time, contributions to this project are not accepted. Please feel free to fork the repository for personal use or modifications. Any pull requests or issues will not be reviewed or merged.
 
-Contributions to the Adopto project are not being accepted.
-However, you are welcome to fork the repository for personal use or modifications.
-Please note that any pull requests or issues submitted will not be reviewed or merged.
-
+## Tests
+This project does not currently include automated testing. However, if you wish to contribute tests, consider using Jest for unit testing or Cypress for UI testing.
 
 ## Questions
-If you have any questions about the Adopto project, feel free to reach out:
-
-📧 Email: meglanghoff@gmail.com
-
-💻 GitHub: https://github.com/meglanghoffdesign
-
-You can also check out the original repository that inspired this project here: 
-git@github.com:meglanghoffdesign/adopto.git
-
-
-
----
-
-### Take Quiz
-1. Once logged in, you’ll see a list of questions and we will match you with a list of filtered pets.
-2. Click on a pet's name to view more details about the pet.
-
-
----
-
-## File Structure
-```
-adopto/
-├── client/                # Frontend (React + Vite + Tailwind)
-├── server/                # Backend (Node + Express + PostgreSQL)
-├── db/                    # Database schema & seed files
-├── .env                   # Environment variables (shared or root-level)
-├── package.json           # Project scripts and root dependencies (if monorepo)
-├── README.md              # Project documentation
-└── tsconfig.json          # TS config (can be at root or split between client/server)
-8:32
-client/
-├── public/
-│   └── Adopto_Logo.svg
-│   └── Adopto_Logo_Favicon.svg
-│   └── landing-page.svg
-│
-├── src/
-│   ├── assets/                  # Any images or static assets
-│   ├── components/              # Reusable UI components
-│   │   ├── FilterModal.tsx
-│   │   ├── PetCard.tsx
-│   │   ├── Pagination.tsx
-│   │   └── Navbar.tsx
-│   │
-│   ├── interfaces/              # TypeScript types/interfaces
-│   │   └── Pet.ts
-│   │   └── QuizAnswers.ts
-│   │   └── User.ts
-│   │
-│   ├── pages/                   # Page-level components
-│   │   ├── HomePage.tsx
-│   │   ├── LoginPage.tsx
-│   │   ├── RegisterPage.tsx
-│   │   ├── QuizPage.tsx
-│   │   ├── FavoritesPage.tsx
-│   │   ├── PetProfilePage.tsx
-│   │   └── NotFoundPage.tsx
-│   │
-│   ├── utils/                   # Utility functions and helpers
-│   │   ├── api.ts               # Fetch wrapper
-│   │   └── auth.ts              # Auth token helpers (get/set/remove)
-│   │
-│   ├── App.tsx                  # Root component
-│   ├── main.tsx                 # Entry point
-│   └── router.tsx              # React Router setup
-│
-├── tailwind.config.js
-├── tsconfig.json
-├── vite.config.ts
-└── index.html
-```
-
-
-
-
-
-## Support
-If you encounter any issues or have questions, feel free to open an [issue](https://github.com/yourusername/pet-adoption-app/issues) or contact us at support@petadoptionapp.com.
-
----
+If you have any questions, feel free to reach out to me at [meglanghoff@gmail.com](mailto:meglanghoff@gmail.com) or visit my GitHub profile at [https://github.com/meglanghoffdesign](https://github.com/meglanghoffdesign).
