@@ -8,21 +8,18 @@ const WelcomePage: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-white">
       {/* Logo */}
       <div className="flex items-center mb-6">
-        <img src="/logo.png" alt="Adopto Logo" className="h-8 w-8 mr-2" />
-        <span className="text-2xl font-semibold text-purple-600">Adopto</span>
+      <img src="/Adopto_Logo.svg" alt="Adopto Logo" className="h-20 w-50 mr-2" />
       </div>
 
       {/* Headline + Text */}
       <h2 className="text-xl font-bold mb-2">Welcome to Adopto!</h2>
       <p className="max-w-md text-gray-700 mb-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus est
-        nulla, porta et diam vel, viverra tempus tellus. Etiam bibendum congue
-        suscipit.
+      Discover your perfect match — take the quiz and meet your future furry friend
       </p>
 
       {/* Illustration */}
       <img
-        src="/welcome-illustration.png"
+        src="/welcomepage.svg"
         alt="Man with cat"
         className="w-60 mx-auto mb-8"
       />

@@ -92,6 +92,9 @@ export const searchPets = async (req: Request, res: Response) => {
     // Combine the results (optional)
     const combinedPets = [...data.animals, ...petsFromDb];
 
+    
+
+
     // Return the combined list
     res.json(combinedPets);
   } catch (error: any) {
