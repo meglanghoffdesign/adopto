@@ -1,157 +1,74 @@
 # Pet Adoption App
 
-Welcome to the Pet Adoption App! This platform connects pet seekers with shelters and fosters to help animals find their forever homes.
+## Lisence Badge
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
+
+## Description
+Adopto matches you with the perfect pet by using a personalized quiz to filter adoptable animals based on your lifestyle, living situation, and preferences, making pet adoption easier and more tailored to your needs. Built with React, Tailwind CSS, Node.js, Express, and PostgreSQL, Adopto integrates with the Petfinder API to fetch real-time pet listings based on dynamic filters generated from user quiz responses. The app uses JWT for secure authentication, stores quiz data in a flexible jsonb column, and allows users to save favorites, revisit their quiz results, or search with custom filters—all through a streamlined full-stack experience.
 
 ## Features
 - **User Authentication**: Secure login with hashed passwords and JWT-based authentication.
-- **Pet Listings**: Browse available pets for adoption with detailed profiles.
-- **Search and Filter**: Find pets by species, breed, age, and location.
+- **Real-Time Pet Listings**: Integrates with the Petfinder API to show up-to-date adoptable animals.
+- **Favorites System**: Users can save and view favorite pets.
+- **Personalized Quiz**: Matches users with pets based on lifestyle, home type, activity level, and preferences.
+- **Responsive Design**: Mobile-friendly UI built with React and Tailwind CSS.
+
+## Authors
+
+| author | github                                                    | contact            
+| -------| --------------------------------------------------------- | ------------------------------- | 
+| Amani Akram|[@amaniakram](https://www.github.com/amaniakram) | [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amani-akram-193a3b2b0/)|
+| Zach Donels |[@zachD-ae](https://github.com/ZachD-ae) |  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/zach-donels-026b2bb0)|
+| Meg Langhoff |[@meglanghoffdesign](https://github.com/meglanghoffdesign) |  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/meg-langhoff)|
 
 ## Installation
+To get started, clone the repository to your local machine using the following command:
+git clone https://github.com/meglanghoffdesign/adopto.git
 
-##Technolgy
+Next, navigate into the project directory:
+cd adopto_db
 
+Install dependencies:
+npm install
 
-### Prerequisites
-Ensure you have the following installed on your system:
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+Run the following:
+npm run build
 
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/pet-adoption-app.git
-   cd pet-adoption-app
-   ```
+After that, you can run the project with:
+npm start
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+Alternatively, you can view the full project here: https://adopto.onrender.com
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory with the following keys:
-   ```env
-   PORT=3000
-   DB_CONNECTION=mongodb://localhost:27017/petAdoptionApp
-   JWT_SECRET=yourSecretKey
-   ```
-
-4. Start the development server:
-   ```bash
-   npm start
-   ```
-
-5. Access the app in your browser at `http://localhost:3000`.
+## Technologies Used
+- Frontend: React with Tailwind CSS
+- Backend: Node.js with Express
+- Database: PostgreSQL
+- Authentication: JSON Web Tokens
+- API Integration: Petfinder API for fetching adoptable pets
+- Hosting: Render
 
 ## Usage
 
-## Getting Started
+### Registering
+To get started, click the “Register” button on the landing page. Fill out the form with a unique username, valid email, and secure password. Make sure your password and confirmation match before submitting. Upon successful registration, you’ll be directed to the login page.
 
-To begin using the Pet Adoption App, follow these steps:
-1. Visit the app's homepage at [Pet Adoption App](http://localhost:3000) (if hosted locally) or the live site URL.
-2. Create an account using your email address.
-3. Log in, take the quiz and browse pets.
+### Login
+If you already have an account, click “Login” and enter your username and password. After logging in, you’ll be redirected to the welcome page where you can begin exploring pets or take the quiz.
 
----
+### Taking the Quiz 
+Click “Take the Quiz” to answer a series of lifestyle questions about your home, activity level, allergies, and more. Your responses will be used to generate a custom set of filters for pet recommendations. After completing the quiz, you’ll be redirected to the dashboard with results tailored to you.
 
-## Features Overview
+### Interacting with the Dashboard
+The Dashboard displays a list of adoptable pets fetched from the Petfinder API filtered based on your quiz. You can scroll through pets, view basic info at a glance, or click on a pet card to be redirected to their full adoption profile.
 
-### Key Features:
-- **User Authentication**: Secure registration and login.
-- **Pet Listings**: View detailed profiles of pets available for adoption.
-- **Search and Filter**: Find pets by species, breed, age, and location.
+### Favoriting/Unfavoriting Pets
+To save a pet you’re interested in, click the paw icon on their profile card. This will add them to your list of favorites. Click the heart again to remove them. You can access your favorite pets anytime by navigating to your Favorites tab at the top of the dashboard.
 
+## Contributing
+At this time, contributions to this project are not accepted. Please feel free to fork the repository for personal use or modifications. Any pull requests or issues will not be reviewed or merged.
 
----
+## Tests
+This project does not currently include automated testing. However, if you wish to contribute tests, consider using Jest for unit testing or Cypress for UI testing.
 
-## How to Use the App
-
-### Register an Account
-1. Click the **Register** button on the homepage.
-2. Fill out the registration form with:
-   - Your name
-   - Email address
-   - Password
-   -Confirm password
-3. Submit the form to create your account.
-
----
-
-### Log In
-1. Click the **Log In** button on the homepage.
-2. Enter your registered email and password.
-3. Click **Log In** to access your account.
-
----
-
-### Take Quiz
-1. Once logged in, you’ll see a list of questions and we will match you with a list of filtered pets.
-2. Click on a pet's name to view more details about the pet.
-
-
----
-
-## File Structure
-```
-adopto/
-├── client/                # Frontend (React + Vite + Tailwind)
-├── server/                # Backend (Node + Express + PostgreSQL)
-├── db/                    # Database schema & seed files
-├── .env                   # Environment variables (shared or root-level)
-├── package.json           # Project scripts and root dependencies (if monorepo)
-├── README.md              # Project documentation
-└── tsconfig.json          # TS config (can be at root or split between client/server)
-8:32
-client/
-├── public/
-│   └── Adopto_Logo.svg
-│   └── Adopto_Logo_Favicon.svg
-│   └── landing-page.svg
-│
-├── src/
-│   ├── assets/                  # Any images or static assets
-│   ├── components/              # Reusable UI components
-│   │   ├── FilterModal.tsx
-│   │   ├── PetCard.tsx
-│   │   ├── Pagination.tsx
-│   │   └── Navbar.tsx
-│   │
-│   ├── interfaces/              # TypeScript types/interfaces
-│   │   └── Pet.ts
-│   │   └── QuizAnswers.ts
-│   │   └── User.ts
-│   │
-│   ├── pages/                   # Page-level components
-│   │   ├── HomePage.tsx
-│   │   ├── LoginPage.tsx
-│   │   ├── RegisterPage.tsx
-│   │   ├── QuizPage.tsx
-│   │   ├── FavoritesPage.tsx
-│   │   ├── PetProfilePage.tsx
-│   │   └── NotFoundPage.tsx
-│   │
-│   ├── utils/                   # Utility functions and helpers
-│   │   ├── api.ts               # Fetch wrapper
-│   │   └── auth.ts              # Auth token helpers (get/set/remove)
-│   │
-│   ├── App.tsx                  # Root component
-│   ├── main.tsx                 # Entry point
-│   └── router.tsx              # React Router setup
-│
-├── tailwind.config.js
-├── tsconfig.json
-├── vite.config.ts
-└── index.html
-```
-
-
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Support
-If you encounter any issues or have questions, feel free to open an [issue](https://github.com/yourusername/pet-adoption-app/issues) or contact us at support@petadoptionapp.com.
-
----
-Happy adopting!
+## Questions
+If you have any questions, feel free to reach out to me at [meglanghoff@gmail.com](mailto:meglanghoff@gmail.com) or visit my GitHub profile at [https://github.com/meglanghoffdesign](https://github.com/meglanghoffdesign).
