@@ -117,7 +117,7 @@ onClick={() => {
         </div>
       </div>
 
-      <div className="flex flex-1 p-6 gap-6">
+      <div className=" flex flex-col lg:flex-row flex-1 p-4 gap-6">
         {/* Sidebar */}
         <aside className="w-full max-w-sm bg-white p-6 rounded shadow text-center">
           <img src="/landing-page.svg" alt="Illustration" className="mx-auto mb-4 w-40" />
