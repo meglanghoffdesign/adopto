@@ -37,7 +37,6 @@ const PetProfilePage: React.FC = () => {
       <div className="max-w-4xl mx-auto bg-gray-50 p-6 rounded-lg shadow">
         <div className="flex flex-col md:flex-row gap-6">
           <img
-            src={pet.photos[0]?.large || "/brittany-spaniel-dog.webp"}
             alt={pet.name}
             className="w-full md:w-1/2 rounded"
           />
