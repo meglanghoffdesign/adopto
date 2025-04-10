@@ -22,29 +22,31 @@ The quiz collects information such as:
 
 -Allergies
 
-Living situation
+-Living situation
 
-Presence of kids or other pets
+-Presence of kids or other pets
 
-Available time for care
+-Available time for care
 
-Desired activity level
+-Desired activity level
 
-Geographic location and search radius
+-Geographic location and search radius
 ---
 
 ## Quiz-to-Filter Mapping
 
 The quiz collects user preferences and lifestyle information to tailor pet adoption search results. Here's how each quiz answer is mapped to search filters:
 
-Quiz Field	Petfinder Filter Field(s)	Mapping Logic
-allergies	allergies (custom logic)	Excludes pets that trigger the user's allergies using $notIn.
-livingSituation	species	Maps housing type to appropriate pet species based on space and noise.
-hasKids	goodWithChildren	Filters pets based on compatibility with children.
-hasOtherPets	goodWithDogs, goodWithCats	Filters pets based on compatibility with other pets.
-availableTime	age	Maps available time to pet age (lower time → older pets).
-activityLevel	activityLevel	Directly maps to pet activity level requirements.
-location + distance	location	Filters pets based on geographic proximity using $near and $maxDistance.
+| **Quiz Field**         | **Mapped Filter Field(s)**           | **Mapping Logic**                                                                 |
+|------------------------|--------------------------------------|------------------------------------------------------------------------------------|
+| allergies              | allergies (custom logic)             | Excludes pets that trigger user's allergies using `$notIn`.                        |
+| livingSituation        | species                              | Maps housing type (e.g., apartment, house) to suitable pet species (size, noise). |
+| hasKids                | goodWithChildren                     | Filters for pets known to be compatible with children.                             |
+| hasOtherPets           | goodWithDogs, goodWithCats           | Filters pets based on compatibility with existing dogs or cats.                    |
+| availableTime          | age                                  | Less available time suggests recommending older (lower-maintenance) pets.          |
+| activityLevel          | activityLevel                        | Matches pet activity requirements to user's preferred energy level.                |
+| location + distance    | location                             | Filters pets by proximity using `$near` and `$maxDistance` geolocation queries.    |
+
 ## Petfinder API Query Logic
 
 The function buildFiltersFromQuiz(quizParams: QuizParams) processes the quiz responses and constructs a filter object for querying the Petfinder API or a similar database. Logic includes:

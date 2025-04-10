@@ -1,6 +1,22 @@
-# Pet Adoption App
+# Adopto App
 
 Welcome to the Pet Adoption App! This platform connects pet seekers with shelters and fosters to help animals find their forever homes.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Description
+
+​Adopto is an AI-powered pet matching platform designed to enhance the pet adoption experience for shelters, breeders, and adopters. By leveraging artificial intelligence, Adopto analyzes pet behavior, health, and adoption histories to predict successful matches between pets and potential adopters. This approach aims to reduce return rates and expedite the adoption process. For adopters, Adopto offers personalized pet care advice, training tips, and health alerts to ensure a smooth transition and ongoing support. Shelters and breeders benefit from AI-driven adoption analytics, aiding in optimizing future placements. The platform also plans to integrate veterinary partnerships and enhance donation transparency to further support pet welfare.
+
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
 ## Features
 - **User Authentication**: Secure login with hashed passwords and JWT-based authentication.
@@ -8,20 +24,14 @@ Welcome to the Pet Adoption App! This platform connects pet seekers with shelter
 - **Search and Filter**: Find pets by species, breed, age, and location.
 
 ## Installation
-
-##Technolgy
-
-
-### Prerequisites
-Ensure you have the following installed on your system:
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+Adopto app uses a Kanban board structure, likely to manage pet adoption tasks, workflows, or user journeys. Here’s a quick summary of the installation and usage steps you’ve got:
 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/pet-adoption-app.git
-   cd pet-adoption-app
+   git clone https://github.com/meglanghoffdesign/kanban_board.git
+
+   cd Adopto
    ```
 
 2. Install dependencies:
@@ -46,42 +56,56 @@ Ensure you have the following installed on your system:
 
 ## Usage
 
+users can log in using the following demo credentials:
+
+-Username: RadiantComet
+
+-Password: password
+
+Once logged in, users will be taken to the Kanban board interface. Tasks are organized into three columns:
+
+-To Do
+
+-In Progress
+
+-Done
+
+Users can:
+
+✅ Create new tasks to manage different stages of pet adoption or other workflows.
+
+✏️ Edit existing tasks to update information or change titles.
+
+🔁 Drag and drop tasks between columns to track progress visually.
+
+🗑️ Delete tasks that are no longer needed.
+
 ## Getting Started
 
-To begin using the Pet Adoption App, follow these steps:
-1. Visit the app's homepage at [Pet Adoption App](http://localhost:3000) (if hosted locally) or the live site URL.
+To begin using the Adopto, follow these steps:
+1. Visit the app's homepage at [Adopto](http://localhost:3000) (if hosted locally) or the live site URL.
 2. Create an account using your email address.
 3. Log in, take the quiz and browse pets.
 
 ---
+## Contributing
 
-## Features Overview
-
-### Key Features:
-- **User Authentication**: Secure registration and login.
-- **Pet Listings**: View detailed profiles of pets available for adoption.
-- **Search and Filter**: Find pets by species, breed, age, and location.
+Contributions to the Adopto project are not being accepted.
+However, you are welcome to fork the repository for personal use or modifications.
+Please note that any pull requests or issues submitted will not be reviewed or merged.
 
 
----
+## Questions
+If you have any questions about the Adopto project, feel free to reach out:
 
-## How to Use the App
+📧 Email: meglanghoff@gmail.com
 
-### Register an Account
-1. Click the **Register** button on the homepage.
-2. Fill out the registration form with:
-   - Your name
-   - Email address
-   - Password
-   -Confirm password
-3. Submit the form to create your account.
+💻 GitHub: https://github.com/meglanghoffdesign
 
----
+You can also check out the original repository that inspired this project here: 
+git@github.com:meglanghoffdesign/adopto.git
 
-### Log In
-1. Click the **Log In** button on the homepage.
-2. Enter your registered email and password.
-3. Click **Log In** to access your account.
+
 
 ---
 
@@ -147,11 +171,9 @@ client/
 
 
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
 ## Support
 If you encounter any issues or have questions, feel free to open an [issue](https://github.com/yourusername/pet-adoption-app/issues) or contact us at support@petadoptionapp.com.
 
 ---
-Happy adopting!

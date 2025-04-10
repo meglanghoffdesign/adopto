@@ -1,6 +1,6 @@
-# Test Cases for Profile Access and Data Retrieval Functionality - Pet Adoption App
+# Test Cases for Profile Access and Data Retrieval Functionality - Adopto
 
-This document outlines test cases for verifying the **Profile Access and Data Retrieval Functionality** in the Pet Adoption App, ensuring that users can view, edit, and retrieve their profile data effectively.
+This document outlines test cases for verifying the **Profile Access and Data Retrieval Functionality** in the Adopto, ensuring that users can view, edit, and retrieve their profile data effectively.
 
 ---
 
@@ -9,14 +9,14 @@ This document outlines test cases for verifying the **Profile Access and Data Re
 ### **Scenario 1: Viewing Profile Data**
 **GIVEN**: A user is logged in and navigates to their profile page.  
 **WHEN**: The profile page loads.  
-**THEN**: The system should display the user’s saved quiz results, including the filters applied and any favorited pets.
+**THEN**: The system display the user’s saved quiz results, including the filters applied and any favorited pets.
 
 ---
 
 ### **Scenario 2: Editing Profile Data**
 **GIVEN**: A user visits their profile.  
 **WHEN**: They view their data.  
-**THEN**: They should be able to see and edit their personal details, such as username, email, and their pet preferences (quiz results, favorited pets).
+**THEN**: They be able to see and edit their personal details, such as username, email, and their pet preferences (quiz results, favorited pets).
 
 ---
 

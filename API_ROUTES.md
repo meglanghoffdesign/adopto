@@ -1,4 +1,4 @@
-# API Route Documentation - Pet Adoption App
+# API Route Documentation - Adopto
 
 This document provides an overview of all backend API routes, including their HTTP methods, expected inputs (parameters, body data), outputs (responses, status codes), and JWT authentication usage for protected routes.
 
