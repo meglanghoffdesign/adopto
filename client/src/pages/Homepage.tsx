@@ -13,6 +13,13 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     const fetchPets = async () => {
       const quizResults = JSON.parse(localStorage.getItem("quizResults") || "{}");
       const authToken = localStorage.getItem("authToken");
@@ -35,9 +42,10 @@ const HomePage: React.FC = () => {
           if (!res.ok) {
             throw new Error("Failed to fetch pets");
           }
-
+          console.log(res);
           const data = await res.json();
-          setPets(data.animals || []);
+          console.log("🐾 Pets received from quiz results:", data);
+          setPets(data || []);
         } catch (err) {
           console.error("Failed to fetch pets", err);
         }
@@ -56,11 +64,14 @@ const HomePage: React.FC = () => {
 
           const data = await res.json();
           setPets(data.animals || []);
+          console.log("🐾 Pets received and stored in state:", data);
         } catch (err) {
           console.error("Failed to fetch pets", err);
         }
       }
     };
+    
+
 
     fetchPets();
   }, [currentPage]);
@@ -70,6 +81,7 @@ const HomePage: React.FC = () => {
     console.log("Applying filters:", newFilters);
     // TODO: Apply filters to API call once backend is ready
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -94,8 +106,11 @@ const HomePage: React.FC = () => {
           </button>
 
           <button
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-            onClick={() => navigate("/login")}
+className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+onClick={() => {
+  localStorage.removeItem("authToken"); // :white_check_mark: only remove the token
+  navigate("/login");
+}}
           >
             Logout
           </button>
@@ -110,29 +125,51 @@ const HomePage: React.FC = () => {
           <p className="text-sm text-gray-500 mb-4">
             We have your quiz results. Head back to find your new best friend!
           </p>
-          <button className="bg-black text-white px-4 py-2 rounded w-full mb-2">
-            See my results
-          </button>
-          <button
-            onClick={() => navigate("/quiz")}
-            className="text-sm text-purple-600 underline"
-          >
-            Restart the quiz
-          </button>
+
+          <button className="bg-black text-white px-4 py-2 rounded w-full mb-2"
+            onClick={() => navigate("/quiz")}>
+             Restart the Quiz
+           </button>
+          
+         
+     
+          
+            
         </aside>
 
         {/* Pet Results Grid */}
         <main className="flex-1">
     {/* Pet Cards Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {pets.length > 0 ? (
-        pets.map((pet) => <PetCard key={pet.id} pet={pet} />)
-      ) : (
-        <p className="col-span-full text-center text-gray-500">
-          No pets found. Try adjusting your filters.
-        </p>
-      )}
-    </div>
+    
+    
+    {pets.length > 0 ? (
+  pets.map((pet) => (
+    <PetCard
+      key={pet.id}
+      pet={{
+        ...pet,
+        primary_photo_cropped: pet.primary_photo_cropped || {
+          medium: "/brittany-spaniel-dog.webp",
+        },
+        breeds: pet.breeds || { primary: "Unknown" },
+        contact: {
+          address: {
+            city: pet.contact?.address?.city || "Unknown",
+            state: pet.contact?.address?.state || "Unknown",
+          },
+        },
+      }}
+    />
+  ))
+) : (
+  <p className="col-span-full text-center text-gray-500">
+    No pets found. Try adjusting your filters.
+  </p>
+)}
+
+</div>
+
 
           {/* Pagination */}
           <Pagination
