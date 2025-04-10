@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Pet } from "../interfaces/Pet";
 
 interface PetCardProps {
@@ -34,7 +33,12 @@ const PetCard: React.FC<PetCardProps> = ({ pet }) => {
   };
 
   return (
-    <Link to={`/pet/${pet.id}`} className="block w-full">
+    <a
+      href={pet.url} // Pet URL from API response
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full"
+    >
       <div className="bg-white rounded shadow p-4 flex flex-col items-center text-center relative">
         {/* Image (fallback-safe) */}
         <img
@@ -73,7 +77,7 @@ const PetCard: React.FC<PetCardProps> = ({ pet }) => {
           {pet.contact?.address?.state || "Unknown State"}
         </p>
       </div>
-    </Link>
+    </a>
   );
 };
 

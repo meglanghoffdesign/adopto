@@ -34,5 +34,6 @@ export interface Pet {
       country?: string;
     };
   };
+  url: string; 
 }
   
