@@ -119,14 +119,17 @@ const QuizPage: React.FC = () => {
       </div>
 
       {/* Back Button */}
+
       {currentIndex > 0 && (
-        <button
-          onClick={handleBack}
-          className="self-start ml-4 mb-2 text-gray-600 hover:text-black"
-        >
-          ←
-        </button>
-      )}
+  <div className="w-full max-w-md mb-4 text-left">
+    <button
+      onClick={handleBack}
+      className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 bg-white border border-purple-600 rounded hover:bg-purple-600 hover:text-white transition"
+    >
+      ← Back
+    </button>
+  </div>
+)}
 
       {/* Question Header */}
       <p className="text-sm text-gray-500 mb-1">
@@ -139,47 +142,50 @@ const QuizPage: React.FC = () => {
 
       {/* Conditional Question UI */}
       {currentIndex === quizData.length - 1 ? (
-        // 👉 Final Question (location form)
+        // :point_right: Final Question (location form)
         <div className="w-full max-w-md text-left">
-          <label className="font-medium block mb-1">Location</label>
+          <label className="font-medium block mb-1">Zipcode</label>
           <input
             type="text"
-            placeholder="Enter City, State or ZIP"
+            placeholder="Enter ZIP code"
             value={
               typeof answers[7] === "object" ? answers[7].location : ""
             }
             onChange={(e) => {
+              const zip = e.target.value;
               const updated = [...answers];
               updated[7] = {
                 ...(typeof updated[7] === "object"
                   ? updated[7]
-                  : { distance: "" }),
-                location: e.target.value,
+                  : { distance: "Anywhere" }),
+                location: zip,
               };
               setAnswers(updated);
             }}
             className="w-full mb-4 border border-gray-300 px-4 py-2 rounded bg-gray-100"
           />
-
-          <label className="font-medium block mb-1">Distance</label>
-          <input
-            type="text"
-            placeholder="Anywhere"
-            value={
-              typeof answers[7] === "object" ? answers[7].distance : ""
-            }
-            onChange={(e) => {
-              const updated = [...answers];
-              updated[7] = {
-                ...(typeof updated[7] === "object"
-                  ? updated[7]
-                  : { location: "" }),
-                distance: e.target.value,
-              };
-              setAnswers(updated);
-            }}
-            className="w-full mb-6 border border-gray-300 px-4 py-2 rounded bg-gray-100"
-          />
+        <label className="font-medium block mb-1">Search Radius</label>
+        <select
+          value={
+            typeof answers[7] === "object" ? answers[7].distance : "Anywhere"
+          }
+          onChange={(e) => {
+            const updated = [...answers];
+            updated[7] = {
+              ...(typeof updated[7] === "object"
+                ? updated[7]
+                : { location: "" }),
+              distance: e.target.value,
+            };
+            setAnswers(updated);
+          }}
+          className="w-full mb-6 border border-gray-300 px-4 py-2 rounded bg-gray-100"
+        >
+          <option value="Anywhere">Anywhere</option>
+          <option value="10">10 miles</option>
+          <option value="20">20 miles</option>
+          <option value="50">50 miles</option>
+        </select>
 
           <button
             onClick={handleFinalSubmit}
